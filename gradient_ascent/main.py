@@ -1,7 +1,7 @@
 import torch
 
 
-class GradientAscent(torch.nn.optim.Optimizer):
+class GradientAscent:
     """
     Gradient Ascent Optimizer
 
@@ -60,7 +60,7 @@ class GradientAscent(torch.nn.optim.Optimizer):
                 # Momentum
                 self.v[param] = (
                     self.momentum * self.v[param]
-                    + (1.0 - self.monentum) * param.grad.data
+                    + (1.0 - self.momentum) * param.grad.data
                 )
 
                 # Adaptive learning rate
