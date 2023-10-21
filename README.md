@@ -93,7 +93,7 @@ The learning rate might need to adapt based on the recent history of gradients, 
 
 
 
-# UseCases:
+# Applications:
 The Gradient Ascent with features like momentum and adaptive learning rates, as discussed, is tailored to handle challenges in non-convex optimization landscapes. Here are some tasks and scenarios where this optimizer would be particularly beneficial:
 
 1. **Maximizing Likelihoods**: 
@@ -121,6 +121,28 @@ For scenarios with non-convex landscapes, the features like **momentum** help es
 
 However, while this optimizer can be effective in the above scenarios, one should always consider the specific nuances of the problem. It's essential to remember that no optimizer is universally the best, and empirical testing is often necessary to determine the most effective optimizer for a particular task.
 
+# Benchmarks
+`python benchmarks.py`
+
+```
+Benchmark 1: 9.999994277954102
+Benchmark 2: 1.375625112855263e-23
+Benchmark 3: -131395.9375
+Benchmark 4: -333186848.0
+Benchmark 5: -166376013824.0
+Benchmark 6: 0.31278279423713684
+Benchmark 7: [1.375625112855263e-23, 1.375625112855263e-23]
+Benchmark 8: -28.793724060058594
+Benchmark 9: 1.0
+Benchmark 10: 0.8203693628311157
+```
+
 # License
 MIT
 
+
+
+# Todo
+- Provide metric logging + make more dynamic
+- Add more benchmarks
+- Validate by training a small Hidden Markov Model or another model
