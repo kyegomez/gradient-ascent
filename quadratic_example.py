@@ -2,14 +2,15 @@ import torch
 from torch import nn
 from gradient_ascent.main import GradientAscent
 
+
 class Quadratic(nn.Module):
     def __init__(self):
         super(Quadratic, self).__init__()
         self.x = nn.Parameter(torch.tensor([1.0]))
 
     def forward(self):
-        return -self.x ** 2
-    
+        return -self.x**2
+
 
 model = Quadratic()
 
@@ -45,8 +46,10 @@ for epoch in range(num_epochs):
     optimizer.step()
 
     # Print updates
-    print(f"Epoch {epoch+1}/{num_epochs}, x: {model.x.item():.4f}, f(x): {output.item():.4f}")
+    print(
+        f"Epoch {epoch+1}/{num_epochs}, x: {model.x.item():.4f}, f(x): {output.item():.4f}"
+    )
 
-# You should observe 'x' moving towards 0 (the maximum of our function) 
+# You should observe 'x' moving towards 0 (the maximum of our function)
 # and f(x) moving towards its maximum value, which is 0.
 # Additionally, the logging interval will print the learning rate and gradient norm every 2 steps.

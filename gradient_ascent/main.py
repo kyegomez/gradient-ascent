@@ -18,7 +18,7 @@ class GradientAscent:
         lr_decay (float, optional): learning rate decay (default: None)
         warmup_steps (int, optional): warmup steps (default: 0)
         logging_interval (int, optional): logging interval (default: 10)
-        
+
 
     Attributes:
         defaults (dict): default optimization options
@@ -96,12 +96,10 @@ class GradientAscent:
                     )
                     adapted_lr = self.lr / (torch.sqrt(self.m[param]) + self.eps)
 
-
                     # Warmup Learning Rate
                     if self.step_count <= self.warmup_steps:
                         warmup_factor = self.step_count / float(self.warmup_steps)
                         adapted_lr *= warmup_factor
-
 
                     # Gradient Ascent
                     param.data.add_(adapted_lr * self.v[param])

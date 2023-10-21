@@ -223,6 +223,21 @@ In this example, a simple linear regression model `SimpleModel` is defined with 
 
 ---
 
+# Visualization Suite
+![Gradient Ascent](gradientascent.png)
+`python visualization`
+
+a few observations:
+
+Oscillations: The oscillatory behavior in the early epochs suggests the learning rate might be a bit high, causing the gradient ascent to overshoot the optimal solution and oscillate around it before stabilizing. This is a common observation when using learning rates that are too large.
+
+Convergence: After the oscillations, the model output does seem to stabilize around the target value, which is a good sign. It suggests that over time, gradient ascent is indeed maximizing the objective function, in this case, the negative mean squared error.
+
+Gradient Ascent: In the context of machine learning, gradient descent is more common, where we minimize a loss function. However, in gradient ascent, we aim to maximize an objective function. The idea is similar, but the directions are opposite. Your visualization showcases gradient ascent, with the objective being to maximize (hence the negative loss).
+
+In summary, the visualization appears to be consistent with how gradient ascent should function, but the oscillations suggest that we might benefit from fine-tuning hyperparameters, especially the learning rate, or potentially using learning rate scheduling.
+
+
 
 
 
