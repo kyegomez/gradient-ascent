@@ -52,7 +52,6 @@ print("Final output after training: ", model(data))
 ```
 
 # Architecture
-Alright, let's build this step-by-step, focusing on the gradient ascent optimizer. 
 
 ### Theoretical Overview
 For a function \( f(\theta) \), the update step in gradient ascent is given by:
