@@ -1,5 +1,4 @@
 import torch
-from torch import nn
 from gradient_ascent.main import GradientAscent
 
 
@@ -7,10 +6,10 @@ class SimpleModel(torch.nn.Module):
     def __init__(self):
         super(SimpleModel, self).__init__()
         self.fc = torch.nn.Linear(1, 1)
-    
+
     def forward(self, x):
         return self.fc(x)
-    
+
 
 # Test the optimizer
 model = SimpleModel()
