@@ -137,10 +137,108 @@ Benchmark 9: 1.0
 Benchmark 10: 0.8203693628311157
 ```
 
+# Documentation
+The `GradientAscent` class is a custom optimizer designed to perform gradient ascent operations. This is especially useful in scenarios where the goal is to maximize an objective function, rather than the more typical gradient descent optimizers which are used to minimize an objective function. Common use cases for gradient ascent include maximizing the likelihood in certain statistical models.
+
+## Features
+
+* Momentum for accelerating the convergence.
+* Nesterov accelerated gradient for a lookahead in the direction of parameter updates.
+* Gradient Clipping to handle exploding gradients.
+* Adaptive learning rates to adjust learning rates based on the magnitude of parameter updates.
+* Learning Rate Decay for reducing oscillations.
+* Warmup steps for slowly ramping up the learning rate at the beginning of the optimization.
+
+## Class Definition
+
+### GradientAscent
+
+Optimizer that performs gradient ascent on the parameters of a given model.
+
+| Parameter         | Type      | Description                                                                                       | Default Value |
+|-------------------|-----------|---------------------------------------------------------------------------------------------------|---------------|
+| parameters        | iterable  | Iterable of parameters to optimize or dicts defining parameter groups.                            | None          |
+| lr                | float     | Learning rate.                                                                                     | 0.01          |
+| momentum          | float     | Momentum factor.                                                                                  | 0.9           |
+| beta              | float     | Beta factor used in adaptive learning rate.                                                       | 0.999         |
+| eps               | float     | Epsilon to prevent division by zero in the adaptive learning rate computation.                    | 1e-8          |
+| nesterov          | bool      | Enables Nesterov accelerated gradient.                                                            | False         |
+| clip_value        | float     | Gradient clipping value. If None, no clipping is done.                                            | None          |
+| lr_decay          | float     | Learning rate decay factor. If None, no learning rate decay is done.                              | None          |
+| warmup_steps      | int       | Number of initial steps during which the learning rate is linearly increased up to its initial value. | 0             |
+| logging_interval  | int       | Logging interval in terms of steps to print learning rate and gradient norm.                      | 10            |
+
+### Methods
+
+#### step()
+Update function for gradient ascent optimizer. This method should be called after computing the gradients using the `backward()` function.
+
+#### zero_grad()
+Resets the gradients of all the parameters to zero.
+
+## Example Usage
+
+```python
+import torch.nn as nn
+import torch
+from gradient_ascent import GradientAscent
+
+# Sample model
+class SimpleModel(nn.Module):
+    def __init__(self):
+        super(SimpleModel, self).__init__()
+        self.fc = nn.Linear(5, 1)
+
+    def forward(self, x):
+        return self.fc(x)
+
+# Create the model and optimizer
+model = SimpleModel()
+optimizer = GradientAscent(model.parameters(), lr=0.01)
+
+# Dummy data
+data = torch.randn(10, 5)
+target = torch.randn(10, 1)
+
+# Loss function
+loss_fn = nn.MSELoss()
+
+for epoch in range(100):
+    # Forward pass
+    output = model(data)
+    
+    # Calculate loss
+    loss = loss_fn(output, target)
+    
+    # Zero gradients
+    optimizer.zero_grad()
+    
+    # Backward pass
+    (-loss).backward() # Negative because we want to maximize
+    
+    # Update parameters
+    optimizer.step()
+```
+
+In this example, a simple linear regression model `SimpleModel` is defined with a single fully connected layer. We use the `GradientAscent` optimizer to maximize the negative mean squared error, effectively performing gradient ascent to minimize the loss.
+
+## Tips and Recommendations
+
+* Adjust the learning rate `lr` based on the problem at hand. If the model is not converging or if the updates are too aggressive, reduce the learning rate. Conversely, if the learning is too slow, consider increasing the learning rate.
+* The warmup feature can be particularly useful in cases where aggressive updates in the initial stages can destabilize the learning process. Setting an appropriate value for `warmup_steps` can alleviate this.
+* Regularly monitor the gradient norms (provided in the logs every `logging_interval` steps) to diagnose potential issues such as exploding or vanishing gradients.
+
+## References and Further Reading
+* [Deep Learning Book by Goodfellow et. al. - Chapter 8](http://www.deeplearningbook.org/contents/optimization.html)
+* [Why Momentum Really Works](https://distill.pub/2017/momentum/)
+
+---
+
+
+
+
 # License
 MIT
-
-
 
 # Todo
 - Provide metric logging + make more dynamic
