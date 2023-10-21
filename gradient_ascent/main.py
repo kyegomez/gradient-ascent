@@ -13,6 +13,9 @@ class GradientAscent:
         momentum (float, optional): momentum factor (default: 0.9)
         beta (float, optional): beta factor (default: 0.999)
         eps (float, optional): epsilon (default: 1e-8)
+        nesterov (bool, optional): enables Nesterov accelerated gradient (default: False)
+        clip_value (float, optional): gradient clipping value (default: None)
+        lr_decay (float, optional): learning rate decay (default: None)
 
     Attributes:
         defaults (dict): default optimization options
