@@ -81,17 +81,6 @@ Algorithm: GradientAscentOptimizer
 3. Return final parameters θ
 ```
 
-### 3 New Features
-1. Non-Convexity:
-Many problems in deep learning involve non-convex optimization landscapes. Gradient ascent, like gradient descent, can get stuck in local maxima when dealing with such landscapes. Adding mechanisms to escape from these local optima can be necessary.
-
-2. Momentum:
-Momentum can be integrated to accelerate gradient vectors in any consistent direction, which can help in faster convergence and also in avoiding getting stuck in shallow local maxima.
-
-3. Adaptive Learning Rates:
-The learning rate might need to adapt based on the recent history of gradients, allowing the optimization to move faster during the early stages and slow down during fine-tuning. This is seen in optimizers like AdaGrad, RMSProp, and Adam.
-
-
 
 # Applications:
 The Gradient Ascent with features like momentum and adaptive learning rates, as discussed, is tailored to handle challenges in non-convex optimization landscapes. Here are some tasks and scenarios where this optimizer would be particularly beneficial:
