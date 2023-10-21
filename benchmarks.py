@@ -54,9 +54,6 @@ def benchmark_4():
         optimizer.step()
     return output.item()
 
-
-# ...
-
 # Benchmark 5: Maximize a deeper neural network's output
 def benchmark_5():
     model = nn.Sequential(
