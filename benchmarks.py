@@ -18,16 +18,18 @@ def benchmark_1():
         optimizer.step()
     return model(data).item()
 
+
 # Benchmark 2: Maximize quadratic function
 def benchmark_2():
     x = torch.tensor([1.0], requires_grad=True)
     optimizer = GradientAscent([x])
     for _ in range(1000):
         optimizer.zero_grad()
-        y = -x**2
+        y = -(x**2)
         y.backward()
         optimizer.step()
     return x.item()
+
 
 # Benchmark 3: Maximize a neural network's output
 def benchmark_3():
@@ -41,10 +43,13 @@ def benchmark_3():
         optimizer.step()
     return output.item()
 
+
 # Benchmark 4-10: Variations of the above with different complexities and data
 # For simplicity, I'll demonstrate just one more, but similar variations can be created.
 def benchmark_4():
-    model = nn.Sequential(nn.Linear(20, 100), nn.ReLU(), nn.Linear(100, 50), nn.ReLU(), nn.Linear(50, 1))
+    model = nn.Sequential(
+        nn.Linear(20, 100), nn.ReLU(), nn.Linear(100, 50), nn.ReLU(), nn.Linear(50, 1)
+    )
     optimizer = GradientAscent(model.parameters(), lr=0.01)
     data = torch.randn(1, 20)
     for _ in range(1000):
@@ -53,6 +58,7 @@ def benchmark_4():
         (-output).backward()
         optimizer.step()
     return output.item()
+
 
 # Benchmark 5: Maximize a deeper neural network's output
 def benchmark_5():
@@ -63,7 +69,7 @@ def benchmark_5():
         nn.ReLU(),
         nn.Linear(100, 50),
         nn.ReLU(),
-        nn.Linear(50, 1)
+        nn.Linear(50, 1),
     )
     optimizer = GradientAscent(model.parameters(), lr=0.01)
     data = torch.randn(1, 10)
@@ -74,16 +80,18 @@ def benchmark_5():
         optimizer.step()
     return output.item()
 
+
 # Benchmark 6: Maximize a function with multiple peaks
 def benchmark_6():
     x = torch.tensor([0.5], requires_grad=True)
     optimizer = GradientAscent([x], lr=0.01)
     for _ in range(1000):
         optimizer.zero_grad()
-        y = -torch.sin(5*np.pi*x) * x
+        y = -torch.sin(5 * np.pi * x) * x
         y.backward()
         optimizer.step()
     return x.item()
+
 
 # Benchmark 7: Maximize a 2D function
 def benchmark_7():
@@ -91,10 +99,11 @@ def benchmark_7():
     optimizer = GradientAscent([x], lr=0.01)
     for _ in range(1000):
         optimizer.zero_grad()
-        y = -(x[0]**2 + x[1]**2)
+        y = -(x[0] ** 2 + x[1] ** 2)
         y.backward()
         optimizer.step()
     return x.tolist()
+
 
 # Benchmark 8: Maximize output for a convolutional layer
 def benchmark_8():
@@ -108,12 +117,13 @@ def benchmark_8():
         optimizer.step()
     return output.item()
 
+
 # Benchmark 9: Maximize output for recurrent neural network layer
 def benchmark_9():
     model = nn.RNN(10, 20, 2)
     optimizer = GradientAscent(model.parameters(), lr=0.01)
-    data = torch.randn(5, 1, 10) # sequence length of 5
-    h0 = torch.randn(2, 1, 20) # initial hidden state
+    data = torch.randn(5, 1, 10)  # sequence length of 5
+    h0 = torch.randn(2, 1, 20)  # initial hidden state
     for _ in range(1000):
         optimizer.zero_grad()
         output, _ = model(data, h0)
@@ -121,6 +131,7 @@ def benchmark_9():
         loss.backward()
         optimizer.step()
     return loss.item()
+
 
 # Benchmark 10: Maximize output for an LSTM layer
 def benchmark_10():
@@ -137,8 +148,9 @@ def benchmark_10():
         optimizer.step()
     return loss.item()
 
+
 # Running the benchmarks
-if __name__ == '__main__':
+if __name__ == "__main__":
     results = {
         "Benchmark 1": benchmark_1(),
         "Benchmark 2": benchmark_2(),

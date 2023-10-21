@@ -13,7 +13,16 @@ class SimpleModel(torch.nn.Module):
 
 # Test the optimizer
 model = SimpleModel()
-optimizer = GradientAscent(model.parameters(), lr=0.01)
+optimizer = GradientAscent(
+    model.parameters(),
+    lr=0.1,
+    momentum=0.9,
+    beta=0.99,
+    # nesterov=True,
+    # clip_value=2.0,
+    # lr_decay=0.98,
+)
+
 
 # General some sample data
 data = torch.tensor([[2.0]])
